@@ -1,0 +1,23 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: mediumseagreen;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: greenyellow;
+    color: black;
+    padding: 32px;
+    text-align: center;
+}
+
+form {
+    margin-top: 32px;
+}
+
+input {
+    padding: 16px;
+    font-size: medium;
+}
