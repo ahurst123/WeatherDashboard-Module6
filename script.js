@@ -9,7 +9,7 @@ document.getElementById('search-form').addEventListener('submit', function(event
 })
 
 function getWeatherData(city) {
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OWMAPI}')
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OWMAPI}`)
         .then(Response => Response.json())
         .then(data => {
             displayCurrentWeather(data);
@@ -41,4 +41,33 @@ function kelvintoFahrenheit(kelvin) {
 
 function metersPerSecondToMph(metersPerSecond) {
     return metersPerSecond * 2.23694;
+}
+
+function getForecast(lat, lon) {
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWMAPI}`)
+        .then(response => response.json())
+        .then(data => {
+            displayForecast(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+}
+
+function displayForecast(data) {
+    const forecastEL = document.getElementById('forecast-data');
+    forecastEL.innerHTML = '';
+    for (let x = 0; x < data.list.length; x += 8) {
+        const day = data.list[x];
+        const tempFahrenheit = kelvintoFahrenheit(day.main.temp);
+        const windSpeedMph = metersPerSecondToMph(day.wind.speed);
+        const weatherCard = document.createElement('div');
+        weatherCard.className = 'weather-card';
+        weatherCard.innerHTML = `
+        <h3> ${new Date(day.dt_txt).toLocaleDateString()} </h3>
+        <img src="http:openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
+        <p>Temperature: ${tempFahrenheit.toFixed(2)}°F</p>
+        <p>Humidity: ${day.main.humidity}%</p>
+        <p>Wind SpeedL ${windSpeedMph.toFixed(2)} mph</p>
+        `;
+        forecastEL.appendChild(weatherCard);
+    }
 }
