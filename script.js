@@ -21,6 +21,8 @@ function getWeatherData(city) {
 
 function displayCurrentWeather(data) {
     const currentWeatherEl = document.getElementById('current-weather-data');
+    const tempFahrenheit = kelvintoFahrenheit(data.main.temp);
+    const windSpeedMph = metersPerSecondToMph(data.wind.speed);
     currentWeatherEl.innerHTML = `
         <div class="weather-card">
             <h3>${data.name}</h3>
@@ -31,4 +33,12 @@ function displayCurrentWeather(data) {
             <p> Wind Speed: ${windSpeedMph.toFixed(2)}mph</p>
         </div>
     `;    
+}
+
+function kelvintoFahrenheit(kelvin) {
+    return((kelvin - 273.15) * 9 / 5) + 32;
+}
+
+function metersPerSecondToMph(metersPerSecond) {
+    return metersPerSecond * 2.23694;
 }
