@@ -71,3 +71,16 @@ function displayForecast(data) {
         forecastEL.appendChild(weatherCard);
     }
 }
+
+function saveToHistory(city) {
+    let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (!history.includes(city)) {
+        history.push(city);
+        localStorage.setItem('searchHistory', JSON.stringify(history));
+        updateHistoryUI();
+    }
+}
+
+function updateHistoryUI() {
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+}
