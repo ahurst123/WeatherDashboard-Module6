@@ -9,7 +9,7 @@ document.getElementById('search-form').addEventListener('submit', function(event
 })
 
 function getWeatherData(city) {
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}')
+    fetch('http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OWMAPI}')
         .then(Response => Response.json())
         .then(data => {
             displayCurrentWeather(data);
@@ -17,4 +17,18 @@ function getWeatherData(city) {
             getForecast(data.coord.lat, data.coord.lon);
         })
         .catch(error => console.error('error fetching data:', error));
+}
+
+function displayCurrentWeather(data) {
+    const currentWeatherEl = document.getElementById('current-weather-data');
+    currentWeatherEl.innerHTML = `
+        <div class="weather-card">
+            <h3>${data.name}</h3>
+            <p> Date: ${new Date().toLocaleDateString} </p>
+            <img src ="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${day.weather[0].description}">
+            <p> Temperature: ${tempFahrenheit.toFixed(2)}°F</p>
+            <p> Humidity: ${data.main.humidity}% </p>
+            <p> Wind Speed: ${windSpeedMph.toFixed(2)}mph</p>
+        </div>
+    `;    
 }
