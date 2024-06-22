@@ -9,7 +9,7 @@ document.getElementById('search-form').addEventListener('submit', function(event
 })
 
 function getWeatherData(city) {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OWMAPI}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OWMAPI}`)
         .then(Response => Response.json())
         .then(data => {
             displayCurrentWeather(data);
@@ -26,8 +26,8 @@ function displayCurrentWeather(data) {
     currentWeatherEl.innerHTML = `
         <div class="weather-card">
             <h3>${data.name}</h3>
-            <p> Date: ${new Date().toLocaleDateString} </p>
-            <img src ="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${day.weather[0].description}">
+            <p> Date: ${new Date().toLocaleDateString()} </p>
+            <img src ="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${day.weather[0].description}">
             <p> Temperature: ${tempFahrenheit.toFixed(2)}°F</p>
             <p> Humidity: ${data.main.humidity}% </p>
             <p> Wind Speed: ${windSpeedMph.toFixed(2)}mph</p>
@@ -44,7 +44,7 @@ function metersPerSecondToMph(metersPerSecond) {
 }
 
 function getForecast(lat, lon) {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWMAPI}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWMAPI}`)
         .then(response => response.json())
         .then(data => {
             displayForecast(data);
@@ -63,10 +63,10 @@ function displayForecast(data) {
         weatherCard.className = 'weather-card';
         weatherCard.innerHTML = `
         <h3> ${new Date(day.dt_txt).toLocaleDateString()} </h3>
-        <img src="http:openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
+        <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="${day.weather[0].description}">
         <p>Temperature: ${tempFahrenheit.toFixed(2)}°F</p>
         <p>Humidity: ${day.main.humidity}%</p>
-        <p>Wind SpeedL ${windSpeedMph.toFixed(2)} mph</p>
+        <p>Wind Speed ${windSpeedMph.toFixed(2)} mph</p>
         `;
         forecastEL.appendChild(weatherCard);
     }
