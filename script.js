@@ -27,7 +27,7 @@ function displayCurrentWeather(data) {
         <div class="weather-card">
             <h3>${data.name}</h3>
             <p> Date: ${new Date().toLocaleDateString()} </p>
-            <img src ="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${day.weather[0].description}">
+            <img src ="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
             <p> Temperature: ${tempFahrenheit.toFixed(2)}°F</p>
             <p> Humidity: ${data.main.humidity}% </p>
             <p> Wind Speed: ${windSpeedMph.toFixed(2)}mph</p>
