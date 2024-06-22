@@ -83,4 +83,14 @@ function saveToHistory(city) {
 
 function updateHistoryUI() {
     const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    const historyList = document.getElementById('history-list');
+    historyList.innerHTML = '';
+    history.forEach(city => {
+        const li = document.createElement('li');
+        li.textContent = city;
+        li.addEventListener('click', () => getWeatherData(city));
+        historyList.appendChild(li);
+    });
 }
+
+document.addEventListener('DOMContentLoaded', updateHistoryUI);
